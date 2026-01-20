@@ -79,6 +79,7 @@ public class Player extends Actor {
 
         hitGoblin();
         animate();
+        limitToScreen();
     }
 
     // ===== TAKE DAMAGE =====
@@ -234,6 +235,25 @@ public class Player extends Actor {
             if (Math.abs(getX() - g.getX()) < 50 && Math.abs(getY() - g.getY()) < 50) {
                 g.takeHit();
             }
+        }
+    }
+
+   void limitToScreen() {
+        World w = getWorld();
+        if (w == null) return;
+
+        int halfWidth = getImage().getWidth() / 2;
+
+        int visualOffset = 120;
+
+        int minX = halfWidth - visualOffset;
+        int maxX = w.getWidth() - halfWidth + visualOffset;
+
+        if (getX() < minX) {
+            setLocation(minX, getY());
+        }
+        if (getX() > maxX) {
+            setLocation(maxX, getY());
         }
     }
 

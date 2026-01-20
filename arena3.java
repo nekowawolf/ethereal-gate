@@ -1,10 +1,10 @@
 import greenfoot.*;
 
-public class arena extends World
+public class arena3 extends World
 {
     boolean isPortalSpawned = false;
 
-    public arena()
+    public arena3()
     {    
         super(1200, 675, 1, false);
 
@@ -22,7 +22,7 @@ public class arena extends World
     
     // ===== SPAWN PORTAL =====
     public void spawnPortal() {
-        addObject(new Portal(new arena2()), 1000, 560);
+        addObject(new Portal(new arena4()), 1000, 560);
         isPortalSpawned = true;
     }
 }
