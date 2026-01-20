@@ -8,14 +8,14 @@ public class arena4 extends World
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(Player.class, Goblin.class, Portal.class);
+        setPaintOrder(Player.class, Skeleton.class, Portal.class);
 
         addObject(new Player(), 200, 540);
-        addObject(new Goblin(), 1300, 570);
+        addObject(new Skeleton(), 1300, 575);
     }
     
     public void act() {
-        if (getObjects(Goblin.class).isEmpty() && !isPortalSpawned) {
+        if (getObjects(Skeleton.class).isEmpty() && !isPortalSpawned) {
             spawnPortal();
         }
     }
