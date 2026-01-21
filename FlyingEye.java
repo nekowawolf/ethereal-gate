@@ -113,7 +113,13 @@ public class FlyingEye extends Actor
         Player p = players.get(0);
 
         if (p.isAttacking()) {
-            if (Math.abs(getX() - p.getX()) < 60 && Math.abs(getY() - p.getY()) < 60) {
+            int xDist = getX() - p.getX();
+            int yDist = Math.abs(getY() - p.getY());
+            
+            boolean playerFacingThis = (p.getX() < getX() && p.isFacingRight()) || 
+                                      (p.getX() > getX() && !p.isFacingRight());
+            
+            if (Math.abs(xDist) < 50 && yDist < 50 && playerFacingThis) {
                 takeHit();
             }
         }

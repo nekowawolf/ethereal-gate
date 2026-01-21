@@ -130,19 +130,26 @@ public class Skeleton extends Actor {
         }
     }
 
-    // ===== COLLISION CHECK =====
+   // ===== CHECK PLAYER ATTACK =====
     void checkPlayerHit() {
         List<Player> players = getWorld().getObjects(Player.class);
         if (players.isEmpty()) return;
         Player p = players.get(0);
 
         if (p.isAttacking()) {
-            if (Math.abs(getX() - p.getX()) < 50 && Math.abs(getY() - p.getY()) < 50) {
+            int xDist = getX() - p.getX();
+            int yDist = Math.abs(getY() - p.getY());
+            
+            boolean playerFacingThis = (p.getX() < getX() && p.isFacingRight()) || 
+                                      (p.getX() > getX() && !p.isFacingRight());
+            
+            if (Math.abs(xDist) < 50 && yDist < 50 && playerFacingThis) {
                 takeHit();
             }
         }
     }
 
+    // ===== DAMAGE PLAYER =====
     void damagePlayer() {
         List<Player> players = getWorld().getObjects(Player.class);
         if (!players.isEmpty()) {

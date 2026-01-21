@@ -232,7 +232,15 @@ public class Player extends Actor {
         if (!isAttacking) return;
         java.util.List<Goblin> goblins = getWorld().getObjects(Goblin.class);
         for (Goblin g : goblins) {
-            if (Math.abs(getX() - g.getX()) < 50 && Math.abs(getY() - g.getY()) < 50) {
+            // Check X distance
+            int xDist = getX() - g.getX();
+            int yDist = Math.abs(getY() - g.getY());
+            
+            // Check if facing the goblin
+            boolean facingGoblin = (facingRight && xDist < 0) || (!facingRight && xDist > 0);
+            
+            // Check distance and direction
+            if (Math.abs(xDist) < 50 && yDist < 50 && facingGoblin) {
                 g.takeHit();
             }
         }
@@ -265,5 +273,9 @@ public class Player extends Actor {
     // ===== GETTER =====
     public boolean isAttacking() {
         return isAttacking;
+    }
+    
+    public boolean isFacingRight() {
+        return facingRight;
     }
 }
