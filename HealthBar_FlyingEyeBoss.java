@@ -28,11 +28,11 @@ public class HealthBar_FlyingEyeBoss extends Actor {
     void updateHealthBar() {
         GreenfootImage img = new GreenfootImage(barWidth + 4, barHeight + 35);
         
-        img.setColor(Color.WHITE);
+        img.setColor(Color.BLACK);
         img.setFont(new Font("Arial", true, false, 24));
         
         String name = "Aave";
-        int textWidth = new GreenfootImage(name, 24, Color.WHITE, new Color(0,0,0,0)).getWidth();
+        int textWidth = new GreenfootImage(name, 24, Color.BLACK, new Color(0,0,0,0)).getWidth();
         img.drawString(name, (barWidth - textWidth) / 2, 22);
 
         img.setColor(Color.GRAY);
