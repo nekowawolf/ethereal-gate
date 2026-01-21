@@ -6,7 +6,7 @@ public class arena3 extends World
     private boolean isPortalSpawned = false;
     private int currentWave = 1;
 
-    private int mushroomsToSpawn = 2; // Wave 1: 2 enemies
+    private int mushroomsToSpawn = 2;
     private int mushroomsSpawned = 0;
 
     private int spawnTimer = 0;
@@ -16,11 +16,15 @@ public class arena3 extends World
     private boolean waveInProgress = false;
     private boolean waveCompleted = false;
 
+    // ===== BOSS STATE =====
+    private boolean bossSpawned = false;
+    private boolean bossDefeated = false;
+
     public arena3()
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(Player.class, Mushroom.class, Portal.class);
+        setPaintOrder(Player.class, Mushroom.class, mushroomBoss.class, Portal.class);
 
         addObject(new Player(), 200, 540);
 
@@ -33,7 +37,6 @@ public class arena3 extends World
         if (waveInProgress && !waveCompleted) {
             spawnWave();
 
-            // Check if wave is finished
             if (mushroomsSpawned >= mushroomsToSpawn
                 && getObjects(Mushroom.class).isEmpty()) {
 
@@ -49,8 +52,18 @@ public class arena3 extends World
                 currentWave++;
                 setupNextWave();
             }
-            else {
+            else if (!bossSpawned) {
+                spawnBoss();
+            }
+            else if (bossDefeated) {
                 spawnPortal();
+            }
+        }
+
+        // ===== CHECK BOSS DEFEATED =====
+        if (bossSpawned && !bossDefeated) {
+            if (getObjects(mushroomBoss.class).isEmpty()) {
+                bossDefeated = true;
             }
         }
     }
@@ -97,6 +110,13 @@ public class arena3 extends World
         addObject(new Mushroom(), spawnX, spawnY);
     }
 
+    // ===== SPAWN BOSS =====
+    private void spawnBoss()
+    {
+        addObject(new mushroomBoss(), 1000, 540);
+        bossSpawned = true;
+    }
+
     // ===== SPAWN PORTAL =====
     private void spawnPortal()
     {
@@ -104,3 +124,4 @@ public class arena3 extends World
         isPortalSpawned = true;
     }
 }
+

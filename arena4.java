@@ -6,7 +6,7 @@ public class arena4 extends World
     private boolean isPortalSpawned = false;
     private int currentWave = 1;
 
-    private int skeletonsToSpawn = 2; // Wave 1: 2 enemies
+    private int skeletonsToSpawn = 2;
     private int skeletonsSpawned = 0;
 
     private int spawnTimer = 0;
@@ -16,11 +16,15 @@ public class arena4 extends World
     private boolean waveInProgress = false;
     private boolean waveCompleted = false;
 
+    // ===== BOSS STATE =====
+    private boolean bossSpawned = false;
+    private boolean bossDefeated = false;
+
     public arena4()
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(Player.class, Skeleton.class, Portal.class);
+        setPaintOrder(Player.class, Skeleton.class, skeletonBoss.class, Portal.class);
 
         addObject(new Player(), 200, 540);
 
@@ -33,7 +37,6 @@ public class arena4 extends World
         if (waveInProgress && !waveCompleted) {
             spawnWave();
 
-            // Check if wave is finished
             if (skeletonsSpawned >= skeletonsToSpawn
                 && getObjects(Skeleton.class).isEmpty()) {
 
@@ -49,8 +52,18 @@ public class arena4 extends World
                 currentWave++;
                 setupNextWave();
             }
-            else {
+            else if (!bossSpawned) {
+                spawnBoss();
+            }
+            else if (bossDefeated) {
                 spawnPortal();
+            }
+        }
+
+        // ===== CHECK BOSS DEFEATED =====
+        if (bossSpawned && !bossDefeated) {
+            if (getObjects(skeletonBoss.class).isEmpty()) {
+                bossDefeated = true;
             }
         }
     }
@@ -98,6 +111,13 @@ public class arena4 extends World
         int spawnY = 575;
 
         addObject(new Skeleton(), spawnX, spawnY);
+    }
+
+    // ===== SPAWN BOSS =====
+    private void spawnBoss()
+    {
+        addObject(new skeletonBoss(), 1000, 470);
+        bossSpawned = true;
     }
 
     // ===== SPAWN PORTAL =====

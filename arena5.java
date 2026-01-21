@@ -19,6 +19,10 @@ public class arena5 extends World
     private boolean waveInProgress = true;
     private boolean waveCompleted = false;
 
+    // ===== BOSS STATE =====
+    private boolean bossSpawned = false;
+    private boolean bossDefeated = false;
+
     public arena5()
     {
         super(1200, 675, 1, false);
@@ -28,12 +32,13 @@ public class arena5 extends World
             Goblin.class,
             FlyingEye.class,
             Mushroom.class,
-            Skeleton.class
+            Skeleton.class,
+            tronBoss.class
         );
 
         addObject(new Player(), 200, 540);
 
-        setupWave(); // setup wave 1
+        setupWave();
     }
 
     public void act()
@@ -56,9 +61,22 @@ public class arena5 extends World
                 currentWave++;
                 setupWave();
             }
-            else
+            else if (!bossSpawned)
+            {
+                spawnBoss();
+            }
+            else if (bossDefeated)
             {
                 winGame();
+            }
+        }
+
+        // ===== CHECK BOSS DEFEATED =====
+        if (bossSpawned && !bossDefeated)
+        {
+            if (getObjects(tronBoss.class).isEmpty())
+            {
+                bossDefeated = true;
             }
         }
     }
@@ -66,7 +84,7 @@ public class arena5 extends World
     // ===== SETUP WAVE =====
     private void setupWave()
     {
-        enemiesPerType = currentWave; // wave 1 = 1, wave 2 = 2, wave 3 = 3
+        enemiesPerType = currentWave;
 
         goblinSpawned = 0;
         eyeSpawned = 0;
@@ -149,6 +167,13 @@ public class arena5 extends World
     private void spawnSkeleton()
     {
         addObject(new Skeleton(), randomX(), 575);
+    }
+
+    // ===== SPAWN BOSS =====
+    private void spawnBoss()
+    {
+        addObject(new tronBoss(), 1000, 540);
+        bossSpawned = true;
     }
 
     // ===== WIN GAME =====
