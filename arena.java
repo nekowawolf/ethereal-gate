@@ -4,6 +4,8 @@ public class arena extends World
 {
     // ===== WAVE SYSTEM =====
     boolean isPortalSpawned = false;
+    boolean bossSpawned = false;
+
     int currentWave = 1;
     int goblinsToSpawn = 3;
     int goblinsSpawned = 0;
@@ -18,7 +20,7 @@ public class arena extends World
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(Player.class, Goblin.class, Portal.class);
+        setPaintOrder(HealthBar_GoblinBoss.class, Player.class, Goblin_Boss.class, Goblin.class, Portal.class);
 
         addObject(new Player(), 200, 540);
         
@@ -44,7 +46,15 @@ public class arena extends World
                 waveInProgress = true;
                 waveComplete = false;
             } else {
-                spawnPortal();
+                // ===== GOBLIN BOSS LOGIC =====
+                
+                if (!bossSpawned) {
+                    spawnBoss();
+                    bossSpawned = true;
+                }
+                else if (getObjects(Goblin_Boss.class).isEmpty()) {
+                    spawnPortal();
+                }
             }
         }
     }
@@ -73,6 +83,11 @@ public class arena extends World
         }
         
         addObject(new Goblin(), spawnX, spawnY);
+    }
+
+    // ===== 3.PAWN BOSS =====
+    void spawnBoss() {
+        addObject(new Goblin_Boss(), 1300, 560);
     }
     
     // ===== SPAWN PORTAL =====
