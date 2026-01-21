@@ -171,6 +171,11 @@ public class FlyingEye extends Actor
         }
     }
 
+    // ===== ADD HEALTH BAR =====
+    protected void addedToWorld(World world) {
+        world.addObject(new HealthBar_FlyingEye(this), getX(), getY() - 27);
+    }
+
     // ===== DEATH ANIMATION =====
     void animateDeath() {
         timer++;

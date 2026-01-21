@@ -23,7 +23,7 @@ public class Skeleton extends Actor {
     boolean isDead = false;
     boolean isShielding = false;
 
-    int health = 6;
+    int health = 5;
     int shieldTimer = 0;
 
     public Skeleton() {
@@ -190,6 +190,12 @@ public class Skeleton extends Actor {
         }
     }
 
+    // ===== ADD HEALTH BAR =====
+    protected void addedToWorld(World world) {
+        world.addObject(new HealthBar_Skeleton(this), getX(), getY() - 51);
+    }
+    
+    // ===== DEATH ANIMATION =====
     void animateDeath() {
         timer++;
         if (timer < delay) return;

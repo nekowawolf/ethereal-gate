@@ -257,6 +257,11 @@ public class Player extends Actor {
         }
     }
 
+    // ===== ADD HEALTH BAR =====
+    protected void addedToWorld(World world) {
+        world.addObject(new HealthBar_Player(this), getX(), getY() - 12);
+    }
+
     // ===== GETTER =====
     public boolean isAttacking() {
         return isAttacking;

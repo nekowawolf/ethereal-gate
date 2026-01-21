@@ -21,7 +21,7 @@ public class Mushroom extends Actor {
     boolean isTakingHit = false;
     boolean isDead = false;
 
-    int health = 4;
+    int health = 5;
 
     public Mushroom() {
         // ===== LOAD IMAGES =====
@@ -168,6 +168,11 @@ public class Mushroom extends Actor {
             }
             setImage(displayImg);
         }
+    }
+
+    // ===== ADD HEALTH BAR =====
+    protected void addedToWorld(World world) {
+        world.addObject(new HealthBar_Mushroom(this), getX(), getY() - 30);
     }
 
     // ===== DEATH ANIMATION =====

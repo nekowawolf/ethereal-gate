@@ -190,6 +190,11 @@ public class Goblin extends Actor {
         }
     }
 
+    // ===== ADD HEALTH BAR =====
+    protected void addedToWorld(World world) {
+        world.addObject(new HealthBar_Goblin(this), getX(), getY() - 27);
+    }
+
     boolean isMoving() {
         return !isAttacking && !isTakingHit;
     }
