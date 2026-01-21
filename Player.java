@@ -99,10 +99,10 @@ public class Player extends Actor {
     }
 
     // ===== TAKE DAMAGE =====
-    public void takeDamage() {
+    public void takeDamage(int dmg) {
         if (isDead || isHit) return;
 
-        health--;
+        health -= dmg;
 
         if (health <= 0) {
             isDead = true;

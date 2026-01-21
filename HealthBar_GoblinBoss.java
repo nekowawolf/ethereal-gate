@@ -31,7 +31,7 @@ public class HealthBar_GoblinBoss extends Actor {
         img.setColor(Color.WHITE);
         img.setFont(new Font("Arial", true, false, 24));
         
-        String name = "Orc";
+        String name = "Mantle";
         int textWidth = new GreenfootImage(name, 24, Color.WHITE, new Color(0,0,0,0)).getWidth();
         img.drawString(name, (barWidth - textWidth) / 2, 22);
 

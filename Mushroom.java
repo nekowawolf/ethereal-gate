@@ -22,6 +22,7 @@ public class Mushroom extends Actor {
     boolean isDead = false;
 
     int health = 5;
+    int damage = 2;
 
     public Mushroom() {
         // ===== LOAD IMAGES =====
@@ -125,7 +126,7 @@ public class Mushroom extends Actor {
         if (!players.isEmpty()) {
             Player p = players.get(0);
             if (Math.abs(getX() - p.getX()) < 60 && Math.abs(getY() - p.getY()) < 60) {
-                p.takeDamage();
+                p.takeDamage(damage);
             }
         }
     }

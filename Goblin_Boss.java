@@ -22,10 +22,11 @@ public class Goblin_Boss extends Actor {
     boolean isDead = false;
 
     // ===== STATS =====
-    int health = 20;
+    int health = 21;
     int speed = 1;
     int attackRange = 100;
     int hitCooldown = 0;
+    int damage = 3;
 
     public Goblin_Boss() {
         idle = loadImages("idle", 21);
@@ -102,7 +103,7 @@ public class Goblin_Boss extends Actor {
             Player p = players.get(0);
             if (Math.abs(getX() - p.getX()) < attackRange + 20 &&
                 Math.abs(getY() - p.getY()) < 60) {
-                p.takeDamage();
+                p.takeDamage(damage);
             }
         }
     }

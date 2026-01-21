@@ -19,8 +19,9 @@ public class FlyingEye extends Actor
     boolean isAttacking = false;
     boolean isTakingHit = false;
     boolean isDead = false;
-
-    int health = 10;
+    
+    int damage = 1;
+    int health = 7;
 
     public FlyingEye() {
         // ===== LOAD IMAGES =====
@@ -131,7 +132,7 @@ public class FlyingEye extends Actor
         if (!players.isEmpty()) {
             Player p = players.get(0);
             if (Math.abs(getX() - p.getX()) < 60 && Math.abs(getY() - p.getY()) < 60) {
-                p.takeDamage();
+                p.takeDamage(damage);
             }
         }
     }

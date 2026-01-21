@@ -5,7 +5,7 @@ public class HealthBar_FlyingEye extends Actor
     int width = 45;
     int height = 6;
     FlyingEye owner;
-    int maxHealth = 10; 
+    int maxHealth = 7; 
 
     public HealthBar_FlyingEye(FlyingEye owner) {
         this.owner = owner;
