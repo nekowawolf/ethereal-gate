@@ -113,7 +113,7 @@ public class arena3 extends World
     // ===== SPAWN BOSS =====
     private void spawnBoss()
     {
-        addObject(new mushroomBoss(), 1000, 540);
+        addObject(new mushroomBoss(), 1000, 530);
         bossSpawned = true;
     }
 

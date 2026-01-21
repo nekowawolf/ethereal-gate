@@ -172,7 +172,7 @@ public class arena5 extends World
     // ===== SPAWN BOSS =====
     private void spawnBoss()
     {
-        addObject(new tronBoss(), 1000, 540);
+        addObject(new tronBoss(), 1000, 490);
         bossSpawned = true;
     }
 
