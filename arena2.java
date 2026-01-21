@@ -1,102 +1,105 @@
 import greenfoot.*;
+import java.util.List;
 
 public class arena2 extends World
 {
     // ===== WAVE SYSTEM =====
     private boolean isPortalSpawned = false;
-    private int currentWave = 1;
+    private boolean bossSpawned = false;
 
-    // Flying Eye spawn settings
-    private int flyingEyesToSpawn = 2; // Wave 1: 2 enemies
-    private int flyingEyesSpawned = 0;
+    private int currentWave = 1;
+    private int totalWaves = 3;
+
+    private int enemiesToSpawnThisWave = 2; // default for wave 1
+    private int enemiesSpawnedThisWave = 0;
 
     private int spawnTimer = 0;
     private int spawnDelay = 60;
 
-    // ===== WAVE STATE =====
     private boolean waveInProgress = false;
-    private boolean waveCompleted = false;
+    private boolean waveComplete = false;
 
     public arena2()
-    {    
+    {
         super(1200, 675, 1, false);
 
-        setPaintOrder(Player.class, FlyingEye.class, Portal.class);
+        setPaintOrder(HealthBar_FlyingEyeBoss.class, Player.class, FlyingEye_Boss.class, FlyingEye.class, Portal.class);
 
         addObject(new Player(), 200, 540);
 
         waveInProgress = true;
+        enemiesToSpawnThisWave = 2; // wave 1
     }
-    
-    public void act()
-    {
+
+    public void act() {
         // ===== RUN CURRENT WAVE =====
-        if (waveInProgress && !waveCompleted) {
+        if (waveInProgress && !waveComplete) {
             spawnWave();
 
-            if (flyingEyesSpawned >= flyingEyesToSpawn
-                && getObjects(FlyingEye.class).isEmpty()) {
-
-                waveCompleted = true;
+            if (enemiesSpawnedThisWave >= enemiesToSpawnThisWave && getObjects(FlyingEye.class).isEmpty()) {
+                waveComplete = true;
                 waveInProgress = false;
             }
         }
 
-        // ===== AFTER WAVE CLEARED =====
-        if (waveCompleted && !isPortalSpawned) {
-
-            if (currentWave < 3) {
+        // ===== AFTER WAVE COMPLETED =====
+        if (waveComplete && !isPortalSpawned) {
+            if (currentWave < totalWaves) { // wave 1 and 2
                 currentWave++;
                 setupNextWave();
-            } 
-            else {
-                spawnPortal();
+            } else { // wave 3 finished
+                if (!bossSpawned) {
+                    spawnBoss();
+                    bossSpawned = true;
+                } else if (getObjects(FlyingEye_Boss.class).isEmpty()) {
+                    spawnPortal();
+                }
             }
         }
     }
 
     // ===== SETUP NEXT WAVE =====
-    private void setupNextWave()
-    {
-        if (currentWave == 2) {
-            flyingEyesToSpawn = 2; // Wave 2: 2 enemies
-        }
-        else if (currentWave == 3) {
-            flyingEyesToSpawn = 3; // Wave 3: 3 enemies
-        }
-
-        flyingEyesSpawned = 0;
+    private void setupNextWave() {
+        enemiesSpawnedThisWave = 0;
         spawnTimer = 0;
         waveInProgress = true;
-        waveCompleted = false;
+        waveComplete = false;
+
+        // Set enemies count per wave
+        switch (currentWave) {
+            case 2: enemiesToSpawnThisWave = 2; break;
+            case 3: enemiesToSpawnThisWave = 3; break;
+        }
     }
 
     // ===== SPAWN WAVE =====
-    private void spawnWave()
-    {
-        if (flyingEyesSpawned < flyingEyesToSpawn) {
+    private void spawnWave() {
+        if (enemiesSpawnedThisWave < enemiesToSpawnThisWave) {
             spawnTimer++;
 
             if (spawnTimer >= spawnDelay) {
                 spawnTimer = 0;
                 spawnFlyingEye();
-                flyingEyesSpawned++;
+                enemiesSpawnedThisWave++;
             }
         }
     }
 
     // ===== SPAWN SINGLE FLYING EYE =====
-    private void spawnFlyingEye()
-    {
-        int spawnX = Greenfoot.getRandomNumber(2) == 0 ? -100 : 1300;
+    private void spawnFlyingEye() {
+        int spawnX = (Greenfoot.getRandomNumber(2) == 0) ? -100 : 1300;
         int spawnY = 450;
 
         addObject(new FlyingEye(), spawnX, spawnY);
     }
 
+    // ===== SPAWN BOSS =====
+    private void spawnBoss() {
+        addObject(new FlyingEye_Boss(), 1100, 560);
+    }
+
     // ===== SPAWN PORTAL =====
-    private void spawnPortal()
-    {
+    private void spawnPortal() {
         addObject(new Portal(new arena3()), 1000, 560);
         isPortalSpawned = true;
     }

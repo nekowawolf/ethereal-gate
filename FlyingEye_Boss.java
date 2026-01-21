@@ -1,7 +1,7 @@
 import greenfoot.*;
 import java.util.List;
 
-public class Goblin_Boss extends Actor {
+public class FlyingEye_Boss extends Actor {
 
     // ===== ANIMATION ARRAYS =====
     GreenfootImage[] idle;
@@ -10,10 +10,10 @@ public class Goblin_Boss extends Actor {
     GreenfootImage[] death;
 
     // ===== ANIMATION TIMERS =====
-    int frame   = 0;
+    int frame = 0;
     int timer = 0;
     int delay = 5;
-    int deathWait = 60;
+    int deathWait = 30;
 
     // ===== STATE FLAGS =====
     boolean facingRight = false;
@@ -22,17 +22,21 @@ public class Goblin_Boss extends Actor {
     boolean isDead = false;
 
     // ===== STATS =====
-    int health = 21;
-    int speed = 1;
-    int attackRange = 100;
+    int health = 25;
+    int speed = 2;
+    int attackRange = 80;
     int hitCooldown = 0;
     int damage = 3;
 
-    public Goblin_Boss() {
-        idle = loadImages("idle", 21);
-        walk = loadImages("walk", 10);
-        attack = loadImages("attack", 23);
-        death = loadImages("die", 11);
+    public FlyingEye_Boss() {
+        this(2.0);
+    }
+
+    public FlyingEye_Boss(double scaleFactor) {
+        idle = loadImages("idle", 8, scaleFactor);
+        walk = loadImages("idle", 8, scaleFactor);
+        attack = loadImages("attack", 15, scaleFactor);
+        death = loadImages("death", 20, scaleFactor);
 
         setImage(idle[0]);
     }
@@ -49,14 +53,14 @@ public class Goblin_Boss extends Actor {
     }
 
     // ===== LOAD IMAGES HELPER =====
-    GreenfootImage[] loadImages(String folder, int count) {
+    GreenfootImage[] loadImages(String folder, int count, double scaleFactor) {
         GreenfootImage[] imgs = new GreenfootImage[count];
         for (int i = 0; i < count; i++) {
-            String fileName = String.format("goblinBoss/%s/%02d.png", folder, i);
+            String fileName = String.format("flyingEyeBoss/%s/%d.png", folder, i);
             imgs[i] = new GreenfootImage(fileName);
             imgs[i].scale(
-                imgs[i].getWidth(),
-                imgs[i].getHeight()
+                (int)(imgs[i].getWidth() * scaleFactor),
+                (int)(imgs[i].getHeight() * scaleFactor)
             );
         }
         return imgs;
@@ -75,6 +79,7 @@ public class Goblin_Boss extends Actor {
                 int distanceX = getX() - p.getX();
                 int distanceY = Math.abs(getY() - p.getY());
 
+                // Flying boss can move slightly faster or differ in Y logic, but keeping standard chase
                 if (Math.abs(distanceX) > attackRange) {
                     if (distanceX < 0) {
                         setLocation(getX() + speed, getY());
@@ -101,7 +106,7 @@ public class Goblin_Boss extends Actor {
         List<Player> players = getWorld().getObjects(Player.class);
         if (!players.isEmpty()) {
             Player p = players.get(0);
-            if (Math.abs(getX() - p.getX()) < attackRange + 20 &&
+            if (Math.abs(getX() - p.getX()) < attackRange + 30 &&
                 Math.abs(getY() - p.getY()) < 60) {
                 p.takeDamage(damage);
             }
@@ -156,7 +161,8 @@ public class Goblin_Boss extends Actor {
         if (isAttacking) {
             img = attack[frame];
 
-            if (frame == 14) {
+            // Trigger damage at the end of the swing/bite
+            if (frame == 10) { 
                 damagePlayer();
             }
 
@@ -210,7 +216,7 @@ public class Goblin_Boss extends Actor {
     // ===== ADD BOSS HEALTH BAR =====
     protected void addedToWorld(World world) {
         world.addObject(
-            new HealthBar_GoblinBoss(this),
+            new HealthBar_FlyingEyeBoss(this),
             world.getWidth() / 2,
             60
         );
