@@ -36,6 +36,15 @@ public class Player extends Actor {
     boolean isDead = false;
     int hitTimer = 0;
 
+    // ===== STAMINA SYSTEM =====
+    int maxStamina = 100;
+    int stamina = 100;
+    int staminaCost = 25;  
+
+    int staminaRegenDelay = 150;
+    int staminaTimer = 0;
+
+
     // ===== GROUND =====
     int groundY = 540;
 
@@ -75,6 +84,13 @@ public class Player extends Actor {
 
         if (!onGround) {
             applyGravity();
+        }
+
+        regenerateStamina();
+
+        if (isDead) {
+            animateDeath();
+            return;
         }
 
         hitGoblin();
@@ -155,10 +171,17 @@ public class Player extends Actor {
 
     // ===== ATTACK INPUT =====
     void handleAttack() {
-        if (Greenfoot.mousePressed(null) && !isAttacking && onGround) {
+        if (Greenfoot.mousePressed(null)
+            && !isAttacking
+            && onGround
+            && stamina >= staminaCost)
+        {
             isAttacking = true;
             frame = 0;
             timer = 0;
+
+            useStamina();
+
             if (attackIndex == 0) {
                 currentAttack = attack1;
                 attackIndex = 1;
@@ -274,9 +297,26 @@ public class Player extends Actor {
         }
     }
 
+    void useStamina() {
+        stamina -= staminaCost;
+        if (stamina < 0) stamina = 0;
+        staminaTimer = 0;
+    }
+
+    void regenerateStamina() {
+        if (stamina >= maxStamina) return;
+
+        staminaTimer++;
+        if (staminaTimer >= staminaRegenDelay) {
+            stamina++;
+            if (stamina > maxStamina) stamina = maxStamina;
+        }
+    }
+
     // ===== ADD HEALTH BAR =====
     protected void addedToWorld(World world) {
         world.addObject(new HealthBar_Player(this), getX(), getY() - 12);
+        world.addObject(new StaminaBar_Player(this), getX(), getY() - 4);
     }
 
     // ===== GETTER =====
@@ -287,4 +327,13 @@ public class Player extends Actor {
     public boolean isFacingRight() {
         return facingRight;
     }
+
+    public int getStamina() {
+        return stamina;
+    }
+
+    public int getMaxStamina() {
+        return maxStamina;
+    }
+
 }
