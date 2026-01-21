@@ -105,6 +105,11 @@ public class Player extends Actor {
         }
     }
 
+    private void die()
+    {
+        Greenfoot.setWorld(new GameOverWorld());
+    }
+
     // ===== HIT ANIMATION =====
     void animateHit() {
         if (hitTimer > 0) {
@@ -116,7 +121,8 @@ public class Player extends Actor {
     }
 
     // ===== DEATH ANIMATION =====
-    void animateDeath() {
+    void animateDeath()
+    {
         timer++;
         if (timer < delay) return;
         timer = 0;
@@ -126,10 +132,13 @@ public class Player extends Actor {
             if (!facingRight) img.mirrorHorizontally();
             setImage(img);
             frame++;
-        } else {
-            Greenfoot.stop();
+        } 
+        else {
+            Greenfoot.delay(60);
+            die();
         }
     }
+
 
     // ===== LOAD IMAGES =====
     GreenfootImage[] loadImages(String folder, int count) {
