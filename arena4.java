@@ -116,7 +116,7 @@ public class arena4 extends World
     // ===== SPAWN BOSS =====
     private void spawnBoss()
     {
-        addObject(new skeletonBoss(), 1000, 465);
+        addObject(new skeletonBoss(), 1000, 540);
         bossSpawned = true;
     }
 

@@ -29,7 +29,7 @@ public class mushroomBoss extends Actor {
     int damage = 3;
 
     public mushroomBoss() {
-        this(1.0);
+        this(1.5);
     }
 
     public mushroomBoss(double scaleFactor) {
