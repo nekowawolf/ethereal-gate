@@ -24,12 +24,12 @@ public class mushroomBoss extends Actor {
     // ===== STATS =====
     int health = 25;
     int speed = 1;
-    int attackRange = 100;
+    int attackRange = 60;
     int hitCooldown = 0;
     int damage = 3;
 
     public mushroomBoss() {
-        this(2.0);
+        this(1.0);
     }
 
     public mushroomBoss(double scaleFactor) {

@@ -23,12 +23,12 @@ public class tronBoss extends Actor {
     // ===== STATS =====
     int health = 35;
     int speed = 1;
-    int attackRange = 100;
+    int attackRange = 80;
     int hitCooldown = 0;
-    int damage = 5;
+    int damage = 3;
 
     public tronBoss() {
-        this(2.0);
+        this(1.0);
     }
 
     public tronBoss(double scaleFactor) {
