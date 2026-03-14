@@ -25,7 +25,7 @@ public class tronBoss extends Actor {
     int speed = 1;
     int attackRange = 80;
     int hitCooldown = 0;
-    int damage = 3;
+    int damage = 4;
 
     public tronBoss() {
         this(1.0);

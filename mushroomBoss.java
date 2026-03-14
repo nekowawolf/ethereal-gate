@@ -24,7 +24,7 @@ public class mushroomBoss extends Actor {
     // ===== STATS =====
     int health = 25;
     int speed = 1;
-    int attackRange = 60;
+    int attackRange = 50;
     int hitCooldown = 0;
     int damage = 3;
 
@@ -220,4 +220,3 @@ public class mushroomBoss extends Actor {
         );
     }
 }
-

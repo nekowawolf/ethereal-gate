@@ -28,7 +28,7 @@ public class HealthBar_SkeletonBoss extends Actor {
     void updateHealthBar() {
         GreenfootImage img = new GreenfootImage(barWidth + 4, barHeight + 35);
         
-        img.setColor(Color.BLACK);
+        img.setColor(Color.GRAY);
         img.setFont(new Font("Arial", true, false, 24));
         
         String name = "Sahara";

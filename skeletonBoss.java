@@ -36,7 +36,7 @@ public class skeletonBoss extends Actor {
         idle = loadImages("idle", 6, scaleFactor);
         walk = loadImages("walk", 12, scaleFactor);
         attack = loadImages("attack", 15, scaleFactor);
-        death = loadImages("death", 22, scaleFactor);
+        death = loadImages("death", 10, scaleFactor);
 
         setImage(idle[0]);
     }

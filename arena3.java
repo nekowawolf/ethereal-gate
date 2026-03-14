@@ -124,4 +124,3 @@ public class arena3 extends World
         isPortalSpawned = true;
     }
 }
-

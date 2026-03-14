@@ -28,10 +28,10 @@ public class HealthBar_TronBoss extends Actor {
     void updateHealthBar() {
         GreenfootImage img = new GreenfootImage(barWidth + 4, barHeight + 35);
         
-        img.setColor(Color.BLACK);
+        img.setColor(Color.GRAY);
         img.setFont(new Font("Arial", true, false, 24));
         
-        String name = "Tron Boss";
+        String name = "Tron";
         int textWidth = new GreenfootImage(name, 24, Color.BLACK, new Color(0,0,0,0)).getWidth();
         img.drawString(name, (barWidth - textWidth) / 2, 22);
 
