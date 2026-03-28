@@ -7,6 +7,7 @@ public class tronBoss extends Actor {
     GreenfootImage[] idle;
     GreenfootImage[] walk;
     GreenfootImage[] attack;
+    GreenfootImage[] death; 
 
     // ===== ANIMATION TIMERS =====
     int frame = 0;
@@ -35,13 +36,14 @@ public class tronBoss extends Actor {
         idle = loadImages("idle", 16, scaleFactor);
         walk = loadImages("walk", 12, scaleFactor);
         attack = loadImages("attack", 16, scaleFactor);
+        death = loadImages("death", 4, scaleFactor); 
 
         setImage(idle[0]);
     }
 
     public void act() {
         if (isDead) {
-            handleDeath();
+            animateDeath(); 
             return;
         }
 
@@ -50,7 +52,7 @@ public class tronBoss extends Actor {
         animate();
     }
 
-    // ===== LOAD IMAGES HELPER =====
+    // ===== LOAD IMAGES =====
     GreenfootImage[] loadImages(String folder, int count, double scaleFactor) {
         GreenfootImage[] imgs = new GreenfootImage[count];
         for (int i = 0; i < count; i++) {
@@ -64,7 +66,7 @@ public class tronBoss extends Actor {
         return imgs;
     }
 
-    // ===== MOVEMENT AI =====
+    // ===== MOVEMENT =====
     void moveTowardsPlayer() {
         if (isAttacking || isDead) return;
 
@@ -92,7 +94,7 @@ public class tronBoss extends Actor {
         }
     }
 
-    // ===== COMBAT SYSTEM =====
+    // ===== COMBAT =====
     void startAttack() {
         isAttacking = true;
         frame = 0;
@@ -147,7 +149,7 @@ public class tronBoss extends Actor {
         }
     }
 
-    // ===== ANIMATION LOOP =====
+    // ===== ANIMATION =====
     void animate() {
         timer++;
         if (timer < delay) return;
@@ -167,7 +169,7 @@ public class tronBoss extends Actor {
                 frame = 0;
                 isAttacking = false;
             }
-        
+
         } else {
             if (isMoving()) {
                 frame = (frame + 1) % walk.length;
@@ -187,21 +189,28 @@ public class tronBoss extends Actor {
         }
     }
 
-    // ===== DEATH HANDLING =====
-    void handleDeath() {
-        if (deathWait > 0) {
+    // ===== DEATH ANIMATION =====
+    void animateDeath() {
+        timer++;
+        if (timer < delay) return;
+        timer = 0;
+
+        if (frame < death.length) {
+            GreenfootImage displayImg = new GreenfootImage(death[frame]);
+            if (!facingRight) displayImg.mirrorHorizontally();
+            setImage(displayImg);
+            frame++;
+        } else if (deathWait > 0) {
             deathWait--;
         } else {
             getWorld().removeObject(this);
         }
     }
 
-    // ===== MOVEMENT CHECK =====
     boolean isMoving() {
         return !isAttacking;
     }
 
-    // ===== ADD BOSS HEALTH BAR =====
     protected void addedToWorld(World world) {
         world.addObject(
             new HealthBar_TronBoss(this),
@@ -210,4 +219,3 @@ public class tronBoss extends Actor {
         );
     }
 }
-
