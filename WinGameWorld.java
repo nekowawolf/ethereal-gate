@@ -6,7 +6,10 @@ public class WinGameWorld extends World
     {
         super(1200, 675, 1);
 
+        ClearTime.finishRun();
+
         addObject(new WinGame(), getWidth() / 2, 337);
-        addObject(new btnMenu(), getWidth() / 2, 380);
+        addObject(new ClearTimeWinDisplay(), getWidth() / 2, 405);
+        addObject(new btnMenu(), getWidth() / 2, 460);
     }
 }

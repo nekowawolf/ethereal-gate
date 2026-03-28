@@ -24,9 +24,10 @@ public class arena4 extends World
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(Player.class, Skeleton.class, skeletonBoss.class, Portal.class);
+        setPaintOrder(Player.class, Skeleton.class, skeletonBoss.class, Portal.class, ClearTimeDisplay.class);
 
         addObject(new Player(), 200, 540);
+        addObject(new ClearTimeDisplay(), 95, 29);
 
         waveInProgress = true;
     }

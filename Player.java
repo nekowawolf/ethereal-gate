@@ -123,6 +123,7 @@ public class Player extends Actor {
 
     private void die()
     {
+        ClearTime.cancelRun();
         Greenfoot.setWorld(new GameOverWorld());
     }
 

@@ -33,10 +33,12 @@ public class arena5 extends World
             FlyingEye.class,
             Mushroom.class,
             Skeleton.class,
-            tronBoss.class
+            tronBoss.class,
+            ClearTimeDisplay.class
         );
 
         addObject(new Player(), 200, 540);
+        addObject(new ClearTimeDisplay(), 95, 29);
 
         setupWave();
     }

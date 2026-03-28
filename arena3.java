@@ -24,9 +24,10 @@ public class arena3 extends World
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(Player.class, Mushroom.class, mushroomBoss.class, Portal.class);
+        setPaintOrder(Player.class, Mushroom.class, mushroomBoss.class, Portal.class, ClearTimeDisplay.class);
 
         addObject(new Player(), 200, 540);
+        addObject(new ClearTimeDisplay(), 95, 29);
 
         waveInProgress = true;
     }

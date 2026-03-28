@@ -16,6 +16,8 @@ public class Main_Menu extends World
 
         btnHow howButton = new btnHow();
         addObject(howButton, getWidth() / 2, getHeight() / 2 + 180);
+
+        addObject(new ClearTimeMenuDisplay(), getWidth() / 2, getHeight() - 40);
     }
 
     public void showHowToPlay()

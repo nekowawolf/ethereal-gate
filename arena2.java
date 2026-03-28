@@ -23,9 +23,10 @@ public class arena2 extends World
     {
         super(1200, 675, 1, false);
 
-        setPaintOrder(HealthBar_FlyingEyeBoss.class, Player.class, FlyingEye_Boss.class, FlyingEye.class, Portal.class);
+        setPaintOrder(HealthBar_FlyingEyeBoss.class, Player.class, FlyingEye_Boss.class, FlyingEye.class, Portal.class, ClearTimeDisplay.class);
 
         addObject(new Player(), 200, 540);
+        addObject(new ClearTimeDisplay(), 95, 29);
 
         waveInProgress = true;
         enemiesToSpawnThisWave = 2; // wave 1

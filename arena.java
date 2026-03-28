@@ -20,9 +20,12 @@ public class arena extends World
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(HealthBar_GoblinBoss.class, Player.class, Goblin_Boss.class, Goblin.class, Portal.class);
+        setPaintOrder(HealthBar_GoblinBoss.class, Player.class, Goblin_Boss.class, Goblin.class, Portal.class, ClearTimeDisplay.class);
+
+        ClearTime.beginRun();
 
         addObject(new Player(), 200, 540);
+        addObject(new ClearTimeDisplay(), 95, 29);
         
         waveInProgress = true;
     }
