@@ -95,7 +95,7 @@ public class arena2 extends World
 
     // ===== SPAWN BOSS =====
     private void spawnBoss() {
-        addObject(new FlyingEye_Boss(), 1100, 560);
+        addObject(new FlyingEye_Boss(), 1400, 560);
     }
 
     // ===== SPAWN PORTAL =====

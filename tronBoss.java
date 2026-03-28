@@ -158,7 +158,7 @@ public class tronBoss extends Actor {
         if (isAttacking) {
             img = attack[frame];
 
-            if (frame == 10) {
+            if (frame == 2 || frame == 10) {
                 damagePlayer();
             }
 
@@ -167,6 +167,7 @@ public class tronBoss extends Actor {
                 frame = 0;
                 isAttacking = false;
             }
+        
         } else {
             if (isMoving()) {
                 frame = (frame + 1) % walk.length;

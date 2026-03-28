@@ -160,7 +160,7 @@ public class skeletonBoss extends Actor {
         if (isAttacking) {
             img = attack[frame];
 
-            if (frame == 8) {
+            if (frame == 0 || frame == 14) {
                 damagePlayer();
             }
 

@@ -9,7 +9,7 @@ public class Main_Menu extends World
         super(1200, 675, 1);
 
         bgm = new GreenfootSound("bgm.mp3");
-        bgm.setVolume(50);
+        bgm.setVolume(40);
 
         btnStart startButton = new btnStart();
         addObject(startButton, getWidth() / 2, getHeight() / 2 + 100);
