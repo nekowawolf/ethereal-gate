@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=DamageNumber
+comment1.params=damageAmount
+comment1.target=DamageNumber(int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=host\ damage
+comment3.target=void\ spawn(greenfoot.Actor,\ int)
+numComments=4

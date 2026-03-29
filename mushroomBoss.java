@@ -140,6 +140,7 @@ public class mushroomBoss extends Actor {
         if (isDead) return;
 
         health -= dmg;
+        DamageNumber.spawn(this, dmg);
         hitCooldown = 20;
 
         if (health <= 0) {

@@ -122,6 +122,7 @@ public class Skeleton extends Actor {
         }
 
         health--;
+        DamageNumber.spawn(this, 1);
         isTakingHit = true;
         frame = 0;
 

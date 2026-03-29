@@ -90,6 +90,7 @@ public class Goblin extends Actor {
         if (isDead || isTakingHit) return;
 
         health--;
+        DamageNumber.spawn(this, 1);
         isTakingHit = true;
         frame = 0;
         timer = 0;
