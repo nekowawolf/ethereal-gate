@@ -1,8 +1,5 @@
 import greenfoot.*;
 
-/**
- * Confirms the intro dialogue and starts arena 1.
- */
 public class btnOk extends Actor
 {
     public btnOk()
@@ -14,7 +11,10 @@ public class btnOk extends Actor
     {
         if (Greenfoot.mouseClicked(this))
         {
-            Greenfoot.setWorld(new arena());
+            arena world = (arena)getWorld();
+            world.resumeGame();
+
+            getWorld().removeObject(this);
         }
     }
 }

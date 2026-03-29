@@ -10,7 +10,7 @@ public class arena2 extends World
     private int currentWave = 1;
     private int totalWaves = 3;
 
-    private int enemiesToSpawnThisWave = 2; // default for wave 1
+    private int enemiesToSpawnThisWave = 2; 
     private int enemiesSpawnedThisWave = 0;
 
     private int spawnTimer = 0;
@@ -23,16 +23,32 @@ public class arena2 extends World
     {
         super(1200, 675, 1, false);
 
-        setPaintOrder(HealthBar_FlyingEyeBoss.class, Player.class, FlyingEye_Boss.class, FlyingEye.class, Portal.class, ClearTimeDisplay.class);
+        // ===== RESET PAUSE =====
+        arena.isGamePaused = false;
+
+        setPaintOrder(
+            HealthBar_FlyingEyeBoss.class, 
+            Player.class, 
+            FlyingEye_Boss.class, 
+            FlyingEye.class, 
+            Portal.class, 
+            ClearTimeDisplay.class
+        );
 
         addObject(new Player(), 200, 540);
         addObject(new ClearTimeDisplay(), 95, 29);
 
         waveInProgress = true;
-        enemiesToSpawnThisWave = 2; // wave 1
+        enemiesToSpawnThisWave = 2; 
     }
 
     public void act() {
+        // ===== PAUSE SYSTEM =====
+        if (arena.isGamePaused) return;
+
+        // ===== TIMER UPDATE =====
+        ClearTime.update();
+
         // ===== RUN CURRENT WAVE =====
         if (waveInProgress && !waveComplete) {
             spawnWave();
@@ -45,10 +61,10 @@ public class arena2 extends World
 
         // ===== AFTER WAVE COMPLETED =====
         if (waveComplete && !isPortalSpawned) {
-            if (currentWave < totalWaves) { // wave 1 and 2
+            if (currentWave < totalWaves) { 
                 currentWave++;
                 setupNextWave();
-            } else { // wave 3 finished
+            } else { 
                 if (!bossSpawned) {
                     spawnBoss();
                     bossSpawned = true;
@@ -66,7 +82,6 @@ public class arena2 extends World
         waveInProgress = true;
         waveComplete = false;
 
-        // Set enemies count per wave
         switch (currentWave) {
             case 2: enemiesToSpawnThisWave = 2; break;
             case 3: enemiesToSpawnThisWave = 3; break;
@@ -77,7 +92,6 @@ public class arena2 extends World
     private void spawnWave() {
         if (enemiesSpawnedThisWave < enemiesToSpawnThisWave) {
             spawnTimer++;
-
             if (spawnTimer >= spawnDelay) {
                 spawnTimer = 0;
                 spawnFlyingEye();
@@ -90,7 +104,6 @@ public class arena2 extends World
     private void spawnFlyingEye() {
         int spawnX = (Greenfoot.getRandomNumber(2) == 0) ? -100 : 1300;
         int spawnY = 450;
-
         addObject(new FlyingEye(), spawnX, spawnY);
     }
 

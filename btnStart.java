@@ -12,7 +12,7 @@ public class btnStart extends Actor
     {
         if (Greenfoot.mouseClicked(this))
         {
-            Greenfoot.setWorld(new IntroDialogueWorld());
+             Greenfoot.setWorld(new arena());
         }
     }
 }

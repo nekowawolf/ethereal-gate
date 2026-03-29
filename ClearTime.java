@@ -1,16 +1,15 @@
 public final class ClearTime
 {
-    private static long runStartMs;
-    private static boolean runActive;
-    private static long lastClearMs = -1;
+    private static int frameCount = 0;
+    private static boolean runActive = false;
 
-    private ClearTime()
-    {
-    }
+    private static int lastClearFrame = -1;
+
+    private ClearTime() {}
 
     public static void beginRun()
     {
-        runStartMs = System.currentTimeMillis();
+        frameCount = 0;
         runActive = true;
     }
 
@@ -21,12 +20,18 @@ public final class ClearTime
 
     public static void finishRun()
     {
-        if (!runActive)
-        {
-            return;
-        }
-        lastClearMs = System.currentTimeMillis() - runStartMs;
+        if (!runActive) return;
+
+        lastClearFrame = frameCount;
         runActive = false;
+    }
+
+    public static void update()
+    {
+        if (runActive)
+        {
+            frameCount++;
+        }
     }
 
     public static boolean isRunActive()
@@ -36,29 +41,21 @@ public final class ClearTime
 
     public static long getElapsedMs()
     {
-        if (!runActive)
-        {
-            return 0;
-        }
-        return System.currentTimeMillis() - runStartMs;
+        return (long)(frameCount * (1000.0 / 60.0));
     }
 
     public static long getLastClearMs()
     {
-        return lastClearMs;
+        return (long)(lastClearFrame * (1000.0 / 60.0));
     }
 
     public static boolean hasLastClear()
     {
-        return lastClearMs >= 0;
+        return lastClearFrame >= 0;
     }
 
     public static String formatMmSs(long ms)
     {
-        if (ms < 0)
-        {
-            ms = 0;
-        }
         long totalSec = ms / 1000;
         long m = totalSec / 60;
         long s = totalSec % 60;

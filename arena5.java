@@ -27,6 +27,9 @@ public class arena5 extends World
     {
         super(1200, 675, 1, false);
 
+        // ===== RESET PAUSE =====
+        arena.isGamePaused = false;
+
         setPaintOrder(
             Player.class,
             Goblin.class,
@@ -45,6 +48,12 @@ public class arena5 extends World
 
     public void act()
     {
+        // ===== PAUSE SYSTEM =====
+        if (arena.isGamePaused) return;
+
+        // ===== TIMER UPDATE =====
+        ClearTime.update();
+
         if (waveInProgress && !waveCompleted)
         {
             spawnWave();

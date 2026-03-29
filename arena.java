@@ -2,6 +2,9 @@ import greenfoot.*;
 
 public class arena extends World
 {
+    // ===== GLOBAL PAUSE =====
+    public static boolean isGamePaused = true;
+
     // ===== WAVE SYSTEM =====
     boolean isPortalSpawned = false;
     boolean bossSpawned = false;
@@ -20,17 +23,41 @@ public class arena extends World
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(HealthBar_GoblinBoss.class, Player.class, Goblin_Boss.class, Goblin.class, Portal.class, ClearTimeDisplay.class);
+        isGamePaused = true;
 
+        setPaintOrder(
+            btnOk.class,                
+            IntroDialogueImage.class,
+            HealthBar_GoblinBoss.class,
+            Player.class,
+            Goblin_Boss.class,
+            Goblin.class,
+            Portal.class,
+            ClearTimeDisplay.class
+        );
+
+        // ===== START TIMER =====
         ClearTime.beginRun();
 
+        // ===== SPAWN PLAYER & UI =====
         addObject(new Player(), 200, 540);
         addObject(new ClearTimeDisplay(), 95, 29);
-        
+
+        // ===== DIALOGUE =====
+        addObject(new IntroDialogueImage(), getWidth()/2, getHeight()/2);
+        addObject(new btnOk(), 859, 579);
+
         waveInProgress = true;
     }
     
-    public void act() {
+    public void act()
+    {
+        // ===== PAUSE SYSTEM =====
+        if (isGamePaused) return;
+
+        // ===== TIMER UPDATE =====
+        ClearTime.update();
+
         if (waveInProgress && !waveComplete) {
             spawnWave();
             
@@ -49,8 +76,6 @@ public class arena extends World
                 waveInProgress = true;
                 waveComplete = false;
             } else {
-                // ===== GOBLIN BOSS LOGIC =====
-                
                 if (!bossSpawned) {
                     spawnBoss();
                     bossSpawned = true;
@@ -60,6 +85,14 @@ public class arena extends World
                 }
             }
         }
+    }
+    
+    // ===== RESUME GAME =====
+    public void resumeGame()
+    {
+        isGamePaused = false;
+
+        removeObjects(getObjects(IntroDialogueImage.class));
     }
     
     // ===== SPAWN WAVE =====
@@ -88,7 +121,7 @@ public class arena extends World
         addObject(new Goblin(), spawnX, spawnY);
     }
 
-    // ===== 3.PAWN BOSS =====
+    // ===== SPAWN BOSS =====
     void spawnBoss() {
         addObject(new Goblin_Boss(), 1300, 560);
     }
@@ -98,4 +131,4 @@ public class arena extends World
         addObject(new Portal(new arena2()), 1000, 560);
         isPortalSpawned = true;
     }
-}
+}   

@@ -13,6 +13,8 @@ public class ClearTimeDisplay extends Actor
 
     public void act()
     {
+        if (arena.isGamePaused) return;
+
         if (ClearTime.isRunActive())
         {
             updateImage();

@@ -24,7 +24,16 @@ public class arena4 extends World
     {    
         super(1200, 675, 1, false);
 
-        setPaintOrder(Player.class, Skeleton.class, skeletonBoss.class, Portal.class, ClearTimeDisplay.class);
+        // ===== RESET PAUSE =====
+        arena.isGamePaused = false;
+
+        setPaintOrder(
+            Player.class, 
+            Skeleton.class, 
+            skeletonBoss.class, 
+            Portal.class, 
+            ClearTimeDisplay.class
+        );
 
         addObject(new Player(), 200, 540);
         addObject(new ClearTimeDisplay(), 95, 29);
@@ -34,6 +43,12 @@ public class arena4 extends World
     
     public void act()
     {
+        // ===== PAUSE SYSTEM =====
+        if (arena.isGamePaused) return;
+
+        // ===== TIMER UPDATE =====
+        ClearTime.update();
+
         // ===== RUN CURRENT WAVE =====
         if (waveInProgress && !waveCompleted) {
             spawnWave();
@@ -72,18 +87,10 @@ public class arena4 extends World
     // ===== SETUP NEXT WAVE =====
     private void setupNextWave()
     {
-        if (currentWave == 2) {
-            skeletonsToSpawn = 2;
-        }
-        else if (currentWave == 3) {
-            skeletonsToSpawn = 2;
-        }
-        else if (currentWave == 4) {
-            skeletonsToSpawn = 2;
-        }
-        else if (currentWave == 5) {
-            skeletonsToSpawn = 3;
-        }
+        if (currentWave == 2) skeletonsToSpawn = 2;
+        else if (currentWave == 3) skeletonsToSpawn = 2;
+        else if (currentWave == 4) skeletonsToSpawn = 2;
+        else if (currentWave == 5) skeletonsToSpawn = 3;
 
         skeletonsSpawned = 0;
         spawnTimer = 0;

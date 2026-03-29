@@ -64,6 +64,8 @@ public class Player extends Actor {
     }
 
     public void act() {
+        if (arena.isGamePaused) return;
+        
         if (isDead) {
             animateDeath();
             return;
