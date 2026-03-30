@@ -24,14 +24,7 @@ public class DamageNumber extends Actor
         img.setColor(Color.BLACK);
         img.drawString(text, 4, 27);
 
-        if (damageAmount > 20)
-        {
-            img.setColor(Color.ORANGE); 
-        }
-        else
-        {
-            img.setColor(Color.RED);
-        }
+        img.setColor(Color.RED);
 
         img.drawString(text, 2, 25);
 
@@ -64,13 +57,9 @@ public class DamageNumber extends Actor
             return;
         }
 
-        int randomDamage = Greenfoot.getRandomNumber(21) + 10;
-
-        int offsetX = Greenfoot.getRandomNumber(21) - 10;
-
         world.addObject(
-            new DamageNumber(randomDamage),
-            host.getX() + offsetX,
+            new DamageNumber(damage),
+            host.getX(),
             host.getY() - 38
         );
     }

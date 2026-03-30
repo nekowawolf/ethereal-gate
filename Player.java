@@ -2,6 +2,12 @@ import greenfoot.*;
 
 public class Player extends Actor {
 
+    public enum Type
+    {
+        PLAYER1,
+        PLAYER2
+    }
+
     // ===== ANIMATION =====
     GreenfootImage[] walk;
     GreenfootImage[] idle;
@@ -48,17 +54,43 @@ public class Player extends Actor {
     // ===== GROUND =====
     int groundY = 540;
 
-    public Player() {
-        // ===== LOAD IMAGES =====
-        walk = loadImages("player1_run", 10);
-        idle = loadImages("player1_idle", 10);
-        jump = loadImages("player1_Jump", 3);
-        fall = loadImages("player1_JumpFallInbetween", 2);
-        attack1 = loadImages("player1_Attack1", 4);
-        attack2 = loadImages("player1_Attack2", 6);
-        
-        hit = loadImages("player_Hit", 1);
-        death = loadImages("player_Death", 10);
+    public Player()
+    {
+        this(Type.PLAYER1);
+    }
+
+    public Player(Type type)
+    {
+        if (type == null)
+        {
+            type = Type.PLAYER1;
+        }
+
+        if (type == Type.PLAYER2)
+        {
+            walk = loadImages("player2", "player2_run", 16, true);
+            idle = loadImages("player2", "player2_idle", 10, true);
+            jump = loadImages("player2", "player2_Jump", 6, false);
+            fall = jump;
+
+            attack1 = loadImages("player2", "player2_Attack", 7, false);
+            attack2 = attack1;
+
+            hit = loadImages("player2", "player2_Hit", 4, false);
+            death = loadImages("player2", "player2_Death", 6, false);
+        }
+        else
+        {
+            walk = loadImages("player", "player1_run", 10, true);
+            idle = loadImages("player", "player1_idle", 10, true);
+            jump = loadImages("player", "player1_Jump", 3, true);
+            fall = loadImages("player", "player1_JumpFallInbetween", 2, true);
+            attack1 = loadImages("player", "player1_Attack1", 4, true);
+            attack2 = loadImages("player", "player1_Attack2", 6, true);
+
+            hit = loadImages("player", "player_Hit", 1, true);
+            death = loadImages("player", "player_Death", 10, true);
+        }
 
         setImage(idle[0]);
     }
@@ -160,13 +192,22 @@ public class Player extends Actor {
 
 
     // ===== LOAD IMAGES =====
-    GreenfootImage[] loadImages(String folder, int count) {
+    GreenfootImage[] loadImages(String baseDir, String folder, int count, boolean twoDigits)
+    {
         GreenfootImage[] imgs = new GreenfootImage[count];
-        for (int i = 0; i < count; i++) {
-            String index = (count > 1) ? String.format("%02d", i) : "00";
-            if (count == 1) index = "00";
-            
-            imgs[i] = new GreenfootImage("player/" + folder + "/" + index + ".png");
+        for (int i = 0; i < count; i++)
+        {
+            String index;
+            if (count == 1)
+            {
+                index = twoDigits ? "00" : "0";
+            }
+            else
+            {
+                index = twoDigits ? String.format("%02d", i) : String.valueOf(i);
+            }
+
+            imgs[i] = new GreenfootImage(baseDir + "/" + folder + "/" + index + ".png");
             imgs[i].scale(imgs[i].getWidth() * 2, imgs[i].getHeight() * 2);
         }
         return imgs;

@@ -12,7 +12,7 @@ public class btnStart extends Actor
     {
         if (Greenfoot.mouseClicked(this))
         {
-             Greenfoot.setWorld(new arena());
+            Greenfoot.setWorld(new CharacterSelectWorld());
         }
     }
 }

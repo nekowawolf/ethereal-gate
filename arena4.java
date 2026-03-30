@@ -35,7 +35,9 @@ public class arena4 extends World
             ClearTimeDisplay.class
         );
 
-        addObject(new Player(), 200, 540);
+        addObject(new Player(
+            SelectedCharacter.get() == SelectedCharacter.Type.PLAYER2 ? Player.Type.PLAYER2 : Player.Type.PLAYER1
+        ), 200, 540);
         addObject(new ClearTimeDisplay(), 95, 29);
 
         waveInProgress = true;
