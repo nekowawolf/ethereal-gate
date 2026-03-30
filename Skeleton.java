@@ -145,7 +145,7 @@ public class Skeleton extends Actor {
             boolean playerFacingThis = (p.getX() < getX() && p.isFacingRight()) || 
                                       (p.getX() > getX() && !p.isFacingRight());
             
-            if (Math.abs(xDist) < 50 && yDist < 50 && playerFacingThis) {
+            if (Math.abs(xDist) < p.getAttackRange() && yDist < 50 && playerFacingThis) {
                 takeHit();
             }
         }

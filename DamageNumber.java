@@ -8,9 +8,13 @@ public class DamageNumber extends Actor
 
     private int life = LIFETIME;
 
-    public DamageNumber(int damageAmount)
+    private final Color textColor;
+
+    public DamageNumber(int displayAmount, Color color)
     {
-        String text = String.valueOf(damageAmount);
+        this.textColor = (color == null) ? Color.RED : color;
+
+        String text = String.valueOf(displayAmount);
         int fontSize = 22;
 
         Font font = new Font(fontSize);
@@ -24,7 +28,7 @@ public class DamageNumber extends Actor
         img.setColor(Color.BLACK);
         img.drawString(text, 4, 27);
 
-        img.setColor(Color.RED);
+        img.setColor(textColor);
 
         img.drawString(text, 2, 25);
 
@@ -57,10 +61,10 @@ public class DamageNumber extends Actor
             return;
         }
 
-        world.addObject(
-            new DamageNumber(damage),
-            host.getX(),
-            host.getY() - 38
-        );
+        // Display-only random number (does NOT affect HP logic).
+        int displayAmount = Greenfoot.getRandomNumber(21) + 10; // 10 - 30
+        Color color = (Greenfoot.getRandomNumber(2) == 0) ? Color.RED : Color.YELLOW;
+
+        world.addObject(new DamageNumber(displayAmount, color), host.getX(), host.getY() - 38);
     }
 }
