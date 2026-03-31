@@ -7,6 +7,7 @@ public class WinGameWorld extends World
         super(1200, 675, 1);
 
         ClearTime.finishRun();
+        SaveData.hasWon = true;
 
         addObject(new WinGame(), getWidth() / 2, 337);
         addObject(new ClearTimeWinDisplay(), getWidth() / 2, 405);

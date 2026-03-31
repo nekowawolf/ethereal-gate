@@ -5,7 +5,8 @@ public class Player extends Actor {
     public enum Type
     {
         PLAYER1,
-        PLAYER2
+        PLAYER2,
+        PLAYER3
     }
 
     // ===== ANIMATION =====
@@ -82,6 +83,21 @@ public class Player extends Actor {
 
             hit = loadImages("player2", "player2_Hit", 4, false, p2Scale);
             death = loadImages("player2", "player2_Death", 6, false, p2Scale);
+        }
+        else if (type == Type.PLAYER3)
+        {
+            double p1Scale = 2.0;
+            this.attackRange = 70;
+
+            walk = loadImages("player3", "player3_Run", 7, false, p1Scale);
+            idle = loadImages("player3", "player3_Idle", 7, false, p1Scale);
+            jump = loadImages("player3", "player3_Jump", 4, false, p1Scale);
+            fall = jump;
+            attack1 = loadImages("player3", "player3_Attack", 5, false, p1Scale);
+            attack2 = attack1;
+
+            hit = loadImages("player3", "player3_Hit", 1, false, p1Scale);
+            death = loadImages("player3", "player3_Death", 6, false, p1Scale);
         }
         else
         {
