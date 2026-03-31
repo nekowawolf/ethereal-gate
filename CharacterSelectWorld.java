@@ -17,7 +17,7 @@ public class CharacterSelectWorld extends World
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
 
-        int gap = 10;
+        int gap = 20;
 
         card1 = new CardPlayer1();
         card2 = new CardPlayer2();

@@ -126,7 +126,7 @@ public class Goblin_Boss extends Actor {
                 (p.getX() < getX() && p.isFacingRight()) ||
                 (p.getX() > getX() && !p.isFacingRight());
 
-            if (Math.abs(xDist) < p.getAttackRange() && yDist < 80 && playerFacingBoss) {
+            if (Math.abs(xDist) < p.getAttackRange() + 50 && yDist < 80 && playerFacingBoss) {
                 takeDamage(1);
             }
         }

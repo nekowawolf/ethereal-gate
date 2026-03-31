@@ -41,7 +41,7 @@ public class arena extends World
 
         // ===== SPAWN PLAYER & UI =====
         addObject(new Player(
-            SelectedCharacter.get() == SelectedCharacter.Type.PLAYER2 ? Player.Type.PLAYER2 : Player.Type.PLAYER1
+            Player.Type.valueOf(SelectedCharacter.get().name())
         ), 200, 540);
         addObject(new ClearTimeDisplay(), 95, 29);
 

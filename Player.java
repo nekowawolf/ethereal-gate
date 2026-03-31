@@ -77,7 +77,6 @@ public class Player extends Actor {
             jump = loadImages("player2", "player2_Jump", 5, false, p2Scale);
             fall = jump;
 
-            // Frame 0-4 (Total 5 frame)
             attack1 = loadImages("player2", "player2_Attack", 3, false, p2Scale);
             attack2 = attack1;
 
@@ -86,8 +85,8 @@ public class Player extends Actor {
         }
         else if (type == Type.PLAYER3)
         {
-            double p1Scale = 2.0;
-            this.attackRange = 70;
+            double p1Scale = 2.5;
+            this.attackRange = 60;
 
             walk = loadImages("player3", "player3_Run", 7, false, p1Scale);
             idle = loadImages("player3", "player3_Idle", 7, false, p1Scale);
