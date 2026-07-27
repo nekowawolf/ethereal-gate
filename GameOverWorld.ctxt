@@ -2,4 +2,10 @@
 comment0.target=GameOverWorld
 comment1.params=
 comment1.target=GameOverWorld()
-numComments=2
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ updateBackground()
+comment4.params=folderName\ filePrefix
+comment4.target=greenfoot.GreenfootImage[]\ loadBackgroundFrames(java.lang.String,\ java.lang.String)
+numComments=5

@@ -8,16 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class HowToPlay extends Actor
 {
-    /**
-     * Act - do whatever the How_to_play wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-     public void act()
+    public HowToPlay()
     {
-        if (Greenfoot.mouseClicked(this))
-        {
-            Main_Menu menu = (Main_Menu)getWorld();
-            menu.showHowToPlay();
-        }
+        setImage(new GreenfootImage("How_to_play.png"));
+    }
+
+    public void act()
+    {
+        // Static overlay text; no per-frame actions required.
     }
 }
